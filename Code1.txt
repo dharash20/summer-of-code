@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void max_heap(vector<int>& a, int j, int size_);
+
+void heapify(vector<int>& a)
+{
+    for(int j = (a.size() / 2); j >= 0; j--)
+    max_heap(a, j, a.size());
+}
+
+void max_heap(vector<int>& a, int i, int size_)
+{
+    int maximum, l = (2*i) + 1, r = l + 1;
+
+    if(l < size_ && a[l] > a[i])
+        maximum = l;
+    else
+        maximum = i;
+
+    if(r < size_ && a[r] > a[maximum])
+        maximum = r;
+
+    if(maximum != i)
+    {
+        swap(a[i], a[maximum]);
+        max_heap(a, maximum, size_);
+    }
+}
+
+void heapsort(vector<int>& a)
+{
+   heapify(a);
+   int sz = a.size();
+   for(int i = a.size() - 1; i > 0; i--)
+   {
+        swap(a[0], a[i]);
+        sz--;
+        max_heap(a, 0, sz);
+    }
+}
+
+//  int main()
+// {
+//     vector<int> a = {5, 6, 1, 2, 10, 9, 8, 3, 4, 7};
+//     heapsort(a); 
+//     for(int i = 0; i < a.size(); i++)
+//     {
+//          cout << a[i] << " ";
+//     }
+//          cout << "\n";
+//         return 0;
+// }
